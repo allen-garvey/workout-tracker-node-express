@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Workout Tracker</title>
+        <meta name="description" content="Save and track all your workout information"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="styles/style.css"/>
+    </head>
+    <body>
+    	<div class="container">
+    		<div><h1>Workout Tracker</h1></div>
+	    	<div>
+	    		<form action="">
+	    			<fieldset>
+	    				<legend>Add Workout</legend>
+	    				
+	    				<div class="form-group">
+	    					<label for="workout_name">Name of excercise</label>
+	    					<input type="text" name="workout_name" id="workout_name" placeholder="Name of excercise"/>
+	    				</div>
+		    			
+		    			<div class="form-group">
+		    				<label for="workout_reps">Number of repetitions</label>
+		    				<input type="number" name="workout_reps" id="workout_reps" placeholder="Number of repetitions"/>
+		    			</div>
+		    			
+		    			<div class="form-group">
+			    			<label for="workout_weight">Weight lifted</label>
+			    			<input type="number" name="workout_weight" id="workout_weight" placeholder="Weight lifted"/>
+			    			
+			    			<label for="workout_weight_units_lb">Pounds</label>
+			    			<input type="radio" name="workout_weight_units" id="workout_weight_units_lb" value="true" checked="checked">
+			   				<label for="workout_weight_units_kg">Kilograms</label>
+			    			<input type="radio" name="workout_weight_units" id="workout_weight_units_kg" value="false">
+		    			</div>
+
+		    			<div class="form-group">
+		    				<label for="workout_date">Workout date</label>
+		    				<input type="date" name="workout_date" id="workout_date" placeholder="Workout date">
+		    			</div>
+		    			
+		    			<div class="form-group align-right"><button type="submit">Add</button></div>
+	    			</fieldset>
+	    		</form>
+	    		<div class="form-errors"></div>
+	    	</div>
+			<div>
+				<table id="workout_table">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Reps</th>
+							<th>Weight</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Bench press</td>
+							<td>10</td>
+							<td>50 lbs</td>
+							<td>05/23/2016</td>
+							<td><button>Edit</button><button>Delete</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+    	</div>
+    	<script src="scripts/vendor/jquery-2.2.4.min.js"></script>
+    	<script src="scripts/vendor/underscore-min.js"></script>
+    	<script src="scripts/vendor/backbone-min.js"></script>
+    	<script src="scripts/vendor/backbone.marionette.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+html, body{
+	font-family: Avenir, 'Cetury Gothic', 'Calibri', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+h1{
+	font-size: 3.157em;
+}
+.container{
+	max-width: 900px;
+	margin: 0 auto;
+}
+.align-right{
+	text-align: right;
+}
+.container > div{
+	margin-bottom: 1em;
+}
+
+/*forms*/
+fieldset{
+	padding: 1em auto;
+}
+.form-group{
+	margin-bottom: 1em;
+}
+.form-group:last-of-type{
+	margin-bottom: 0;
+}
+
+label:first-of-type{
+	display: inline-block;
+	min-width: 11em;
+}
+input[type="radio"]{
+	margin-right: 1.5em;
+}
+
+
+/*table*/
+th{
+	text-align: left;
+}
+td{
+	min-width: 10em;
+}
+
