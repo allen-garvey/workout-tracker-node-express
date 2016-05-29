@@ -24,6 +24,12 @@ app.get('/',function(req,res){
 	res.sendFile(config.viewsDir + 'index.html');
 });
 
+app.get('/api/workouts',function(req,res){
+	var workouts = {};
+	workouts.data = [{name: 'benchpress', date: '2015-10-01', lbs:true, weight: 100, reps:10}, {name: 'squat', date: '2016-11-11', lbs:false, weight: 300, reps:2}];
+	res.json(workouts);
+});
+
 
 //default route when nothing else matches
 app.use(function(req,res){
