@@ -26,7 +26,7 @@ app.get('/',function(req,res){
 
 app.get('/api/workouts',function(req,res){
 	var workouts = {};
-	workouts.data = [{name: 'benchpress', date: '2015-10-01', lbs:true, weight: 100, reps:10}, {name: 'squat', date: '2016-11-11', lbs:false, weight: 300, reps:2}];
+	workouts.data = [{id: 1, name: 'benchpress', date: '2015-10-01', lbs:true, weight: 100, reps:10}, {id: 2, name: 'squat', date: '2016-11-11', lbs:false, weight: 300, reps:2}];
 	res.json(workouts);
 });
 
