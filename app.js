@@ -30,6 +30,10 @@ app.get('/api/workouts',function(req,res){
 	res.json(workouts);
 });
 
+app.delete('/api/workouts/:id',function(req,res){
+	res.json({success: true, id : req.params.id});
+});
+
 
 //default route when nothing else matches
 app.use(function(req,res){
