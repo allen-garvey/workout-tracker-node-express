@@ -101,3 +101,8 @@ App.WorkoutsController = function(options){
 var app = new App({ config:  {env: 'local'}    });
 app.start();
 
+
+//add jquery ui datepicker to date inputs
+(function($) {
+	$("input[type='date']").datepicker({"dateFormat": "yy-mm-dd"});
+})(jQuery);
