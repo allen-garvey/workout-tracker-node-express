@@ -6,9 +6,6 @@ html, body{
 h1{
 	font-size: 3.157em;
 }
-table{
-	width: 100%;
-}
 .container{
 	max-width: 900px;
 	margin: 0 auto;
@@ -41,10 +38,13 @@ input[type="radio"]{
 
 
 /*table*/
+table{
+	width: 100%;
+}
 th{
 	text-align: left;
 }
-td{
+#workouts-table td{
 	min-width: 10em;
 }
 
