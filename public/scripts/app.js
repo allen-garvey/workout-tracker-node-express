@@ -10,7 +10,7 @@ var App = Marionette.Application.extend({
 		
 	},
 	start : function(){
-        this.workoutsController = new App.WorkoutsController();
+        this.workoutsController = new App.WorkoutsController({isLocal: (this.config.env === 'local')});
 	}
 });
 
@@ -32,11 +32,11 @@ App.Workout = Backbone.Model.extend({
 
 App.WorkoutsCollection = Backbone.Collection.extend({
 	initialize: function(options){
-		
+		this.isLocal = options.isLocal;
 	},
 	model: App.Workout,
 	url: function(){
-		if(app.config.env === 'local'){
+		if(this.isLocal){
 			return 'http://localhost:3000/api/workouts';
 		}
 		return 'http://52.24.46.168:3000/api/workouts';
@@ -52,6 +52,7 @@ App.WorkoutsCollection = Backbone.Collection.extend({
 App.WorkoutItemView = Marionette.ItemView.extend({
   tagName : 'tr',
   className : 'workout_row',
+  attributes: function(){return {'data-id': this.model.id};},
   template: function(data){ 
         var template = Marionette.TemplateCache.get('#workout-item-template');
   		return  template({model: data});
@@ -70,14 +71,24 @@ App.WorkoutsCompositeView = Marionette.CompositeView.extend({
 /*
 * Controllers
 */
-App.WorkoutsController = function(){
-	this.workouts = new App.WorkoutsCollection();
+App.WorkoutsController = function(options){
+	this.workouts = new App.WorkoutsCollection({isLocal: options.isLocal});
 	var controller = this; //save reference to this
 	//load workouts on page load
 	var promise = this.workouts.fetch();
 	promise.done(function(){
 		controller.workoutsView = new App.WorkoutsCompositeView({collection: controller.workouts});
 		app.workoutTableRegion.show(controller.workoutsView);
+		//add listeners for edit and delete button
+		$(app.workoutTableRegion.el).on('click', '.delete-button', function(event) {
+			event.preventDefault();
+			var parent = $(this).closest('tr');
+			var workout_id = parent.data('id');
+			parent.remove(); //remove from DOM
+			//remove from workouts
+			controller.workouts.get(workout_id).destroy();
+		});
+
 	});
 };
 
