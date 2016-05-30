@@ -5,6 +5,7 @@
         <title>Workout Tracker</title>
         <meta name="description" content="Save and track all your workout information"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="styles/jquery-ui.min.css"/>
         <link rel="stylesheet" type="text/css" href="styles/style.css"/>
     </head>
     <body>
@@ -22,12 +23,12 @@
 		    			
 		    			<div class="form-group">
 		    				<label for="workout_reps">Number of repetitions</label>
-		    				<input type="number" name="workout_reps" id="workout_reps" placeholder="Number of repetitions"/>
+		    				<input type="number" name="workout_reps" id="workout_reps" min="0" placeholder="Number of repetitions"/>
 		    			</div>
 		    			
 		    			<div class="form-group">
 			    			<label for="workout_weight">Weight lifted</label>
-			    			<input type="number" name="workout_weight" id="workout_weight" placeholder="Weight lifted"/>
+			    			<input type="number" name="workout_weight" id="workout_weight" min="0" placeholder="Weight lifted"/>
 			    			
 			    			<label for="workout_weight_units_lb">Pounds</label>
 			    			<input type="radio" name="workout_weight_units" id="workout_weight_units_lb" value="true" checked="checked">
@@ -72,6 +73,7 @@
     	<script src="scripts/vendor/underscore-min.js"></script>
     	<script src="scripts/vendor/backbone-min.js"></script>
     	<script src="scripts/vendor/backbone.marionette.min.js"></script>
+    	<script src="scripts/vendor/jquery-ui.min.js"></script>
 		<script src="scripts/app.js"></script>
     </body>
 </html>
