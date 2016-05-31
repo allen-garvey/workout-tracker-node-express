@@ -19,15 +19,14 @@ var App = Marionette.Application.extend({
 * Models
 */
 App.Workout = Backbone.Model.extend({
-	parse: function(response){
-		response.formatted_date = response.date;
-		if(response.lbs){
-			response.formatted_weight = response.weight + 'lbs';
+	initialize: function(attributes){
+		this.attributes.formatted_date = attributes.date;
+		if(attributes.lbs){
+			this.attributes.formatted_weight = attributes.weight + 'lbs';
 		}
 		else{
-			response.formatted_weight = response.weight + 'kg';
+			this.attributes.formatted_weight = attributes.weight + 'kg';
 		}
-		return response;
 	}
 });
 
@@ -71,6 +70,12 @@ App.WorkoutsCompositeView = Marionette.CompositeView.extend({
 App.WorkoutItemEditView = Marionette.ItemView.extend({
   className : 'edit-workout-modal-container',
   attributes: function(){return {'data-id': this.model.id};},
+  onRender: function(){
+    $('.modal_overlay').show();
+  },
+  onDestroy: function(){
+    $('.modal_overlay').hide();
+  },
   template: function(data){ 
         var template = Marionette.TemplateCache.get('#workout-edit-form-template');
   		return  template({model: data});
@@ -105,8 +110,18 @@ App.WorkoutsController = function(options){
 			var parent = $(this).closest('tr');
 			var workout_id = parent.data('id');
 			var selectedWorkout = controller.workouts.get(workout_id);
-			var editModal = new App.WorkoutItemEditView({model: selectedWorkout});
-			app.workoutModalEditRegion.show(editModal);
+			controller.editModal = new App.WorkoutItemEditView({model: selectedWorkout});
+			app.workoutModalEditRegion.show(controller.editModal);
+		});
+		//add listeners for edit modal
+		$(app.workoutModalEditRegion.el).on('click', '.cancel-button', function(event) {
+			event.preventDefault();
+			app.workoutsController.editModal.destroy();
+		});
+		//save edit
+		$(app.workoutModalEditRegion.el).on('submit', 'form', function(event) {
+			event.preventDefault();
+			app.workoutsController.editModal.destroy();
 		});
 	});
 };
