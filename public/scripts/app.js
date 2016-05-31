@@ -70,16 +70,22 @@ App.WorkoutsCompositeView = Marionette.CompositeView.extend({
 });
 
 App.WorkoutItemEditView = Marionette.ItemView.extend({
-  className : 'edit-workout-modal-container',
-  attributes: function(){return {'data-id': this.model.id};},
-  onRender: function(){
-    $('.modal_overlay').show();
-    $(this.el).find("input[type='date']").datepicker({"dateFormat": "yy-mm-dd"});
-  },
-  onDestroy: function(){
-    $('.modal_overlay').hide();
-  },
-  template: function(data){ 
+  	className : 'edit-workout-modal-container',
+  	attributes: function(){return {'data-id': this.model.id};},
+  	onRender: function(){
+    	$('.modal_overlay').show();
+    	$view = $(this.el);
+    	$view.find("input[type='date']").datepicker({"dateFormat": "yy-mm-dd"});
+    	$view.find('form').on('submit', function(event) {
+    		event.preventDefault();
+    		var workoutId = $view.data('id');
+    		app.workoutsController.updateWorkout(workoutId, app.serializeForm($(this)));
+    	});
+  	},
+  	onDestroy: function(){
+    	$('.modal_overlay').hide();
+  	},
+ 	template: function(data){ 
         var template = Marionette.TemplateCache.get('#workout-edit-form-template');
   		return  template({model: data});
 	}
@@ -138,6 +144,11 @@ App.WorkoutsController = function(){
 		var workoutAttributes =  app.serializeForm($(this));
 		controller.addWorkout(workoutAttributes);
 	});
+	//function called to save edited workout
+	this.updateWorkout = function(workoutId, workoutAttributes){
+		var workout = controller.workouts.get(workoutId);
+		workout.save(workoutAttributes, {patch: true, success: function(){ controller.editModal.destroy(); }});
+	}
 };
 
 
