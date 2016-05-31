@@ -25,7 +25,11 @@ var App = Marionette.Application.extend({
 */
 App.Workout = Backbone.Model.extend({
 	initialize: function(attributes){
-		this.attributes.formatted_date = function(){return this.date};
+		this.attributes.formatted_date = function(){
+			//otherwise days are off by one
+			var split = this.date.split('-');
+			return $.datepicker.formatDate("M d, yy", new Date(split[0], split[1] - 1, split[2]));
+		};
 		this.attributes.formatted_weight = function(){
 			if(this.lbs){
 				return this.weight + 'lbs';
