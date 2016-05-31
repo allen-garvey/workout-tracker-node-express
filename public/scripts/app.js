@@ -77,12 +77,13 @@ App.WorkoutItemEditView = Marionette.ItemView.extend({
   	className : 'edit-workout-modal-container',
   	attributes: function(){return {'data-id': this.model.id};},
   	onRender: function(){
+  		var workoutId = this.model.id;
+    	
     	$('.modal_overlay').show();
     	$view = $(this.el);
     	$view.find("input[type='date']").datepicker({"dateFormat": "yy-mm-dd"});
     	$view.find('form').on('submit', function(event) {
     		event.preventDefault();
-    		var workoutId = $view.data('id');
     		app.workoutsController.updateWorkout(workoutId, app.serializeForm($(this)));
     	});
   	},
@@ -154,7 +155,6 @@ App.WorkoutsController = function(){
 		workout.save(workoutAttributes, {patch: true, success: function(){ controller.editModal.destroy(); }});
 	}
 };
-
 
 
 //add jquery ui datepicker to add workout date input
