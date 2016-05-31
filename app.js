@@ -34,7 +34,6 @@ app.get('/api/workouts',function(req,res){
 var workoutId = 10;
 //create new workout
 app.post('/api/workouts',function(req,res){
-	console.log(req.body);
 	var workout = {id: workoutId};
 	workout.name = req.body.name;
 	workout.date = req.body.date;
