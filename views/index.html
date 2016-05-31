@@ -11,34 +11,34 @@
     <body>
     	<div class="container">
     		<div><h1>Workout Tracker</h1></div>
-	    	<div>
+	    	<div id="add_workout_container">
 	    		<form action="">
 	    			<fieldset>
 	    				<legend>Add Workout</legend>
 	    				
 	    				<div class="form-group">
 	    					<label for="workout_name">Name of exercise</label>
-	    					<input type="text" name="workout_name" placeholder="Name of excercise"/>
+	    					<input type="text" name="name" placeholder="Name of excercise"/>
 	    				</div>
 		    			
 		    			<div class="form-group">
 		    				<label for="workout_reps">Number of repetitions</label>
-		    				<input type="number" name="workout_reps" min="0" placeholder="Number of repetitions"/>
+		    				<input type="number" name="reps" min="0" placeholder="Number of repetitions"/>
 		    			</div>
 		    			
 		    			<div class="form-group">
 			    			<label for="workout_weight">Weight lifted</label>
-			    			<input type="number" name="workout_weight" min="0" placeholder="Weight lifted"/>
+			    			<input type="number" name="weight" min="0" placeholder="Weight lifted"/>
 			    			
 			    			<label for="workout_weight_units_lb">Pounds</label>
-			    			<input type="radio" name="workout_weight_units" value="true" checked="checked">
+			    			<input type="radio" name="lbs" value="true" checked="checked">
 			   				<label for="workout_weight_units_kg">Kilograms</label>
-			    			<input type="radio" name="workout_weight_units" value="false">
+			    			<input type="radio" name="lbs" value="false">
 		    			</div>
 
 		    			<div class="form-group">
 		    				<label for="workout_date">Workout date</label>
-		    				<input type="date" name="workout_date" placeholder="Workout date">
+		    				<input type="date" name="date" placeholder="Workout date">
 		    			</div>
 		    			
 		    			<div class="form-group align-right"><button type="submit">Add</button></div>
@@ -79,29 +79,29 @@
 	    				<legend>Edit Workout</legend>
 	    				<div class="form-group">
 	    					<label for="workout_name">Name of exercise</label>
-	    					<input type="text" name="workout_name" placeholder="Name of excercise" value="<%- model.name %>" />
+	    					<input type="text" name="name" placeholder="Name of excercise" value="<%- model.name %>" />
 	    				</div>
 		    			
 		    			<div class="form-group">
 		    				<label for="workout_reps">Number of repetitions</label>
-		    				<input type="number" name="workout_reps" min="0" placeholder="Number of repetitions" value="<%- model.reps %>" />
+		    				<input type="number" name="reps" min="0" placeholder="Number of repetitions" value="<%- model.reps %>" />
 		    			</div>
 		    			
 		    			<div class="form-group">
 			    			<label for="workout_weight">Weight lifted</label>
-			    			<input type="number" name="workout_weight" min="0" placeholder="Weight lifted" value="<%- model.weight %>" />
+			    			<input type="number" name="weight" min="0" placeholder="Weight lifted" value="<%- model.weight %>" />
 			    			
 			    			<label for="workout_weight_units_lb">Pounds</label>
-			    			<input type="radio" name="workout_weight_units" value="true" 
+			    			<input type="radio" name="lbs" value="true" 
 			    			<%  if(model.lbs){print('checked="checked"');} %> >
 			   				<label for="workout_weight_units_kg">Kilograms</label>
-			    			<input type="radio" name="workout_weight_units" value="false"
+			    			<input type="radio" name="lbs" value="false"
 			    			<%  if(!model.lbs){print('checked="checked"');} %> >
 		    			</div>
 
 		    			<div class="form-group">
 		    				<label for="workout_date">Workout date</label>
-		    				<input type="date" name="workout_date" placeholder="Workout date" value="<%- model.date%>">
+		    				<input type="date" name="date" placeholder="Workout date" value="<%- model.date%>">
 		    			</div>
 		    			
 		    			<div class="form-group align-right"><button type="button" class="cancel-button">Cancel</button><button type="submit">Save</button></div>
