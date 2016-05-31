@@ -44,6 +44,18 @@ app.post('/api/workouts',function(req,res){
 	res.json(workout);
 });
 
+//update edited workout
+app.patch('/api/workouts',function(req,res){
+	var workout = {};
+	workout.id = req.body.id;
+	workout.name = req.body.name;
+	workout.date = req.body.date;
+	workout.reps = req.body.reps;
+	workout.lbs = req.body.lbs;
+	workout.weight = req.body.weight;
+	res.json(workout);
+});
+
 //delete a workout
 app.delete('/api/workouts/:id',function(req,res){
 	res.json({success: true, id : req.params.id});
