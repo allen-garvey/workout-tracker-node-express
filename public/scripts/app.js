@@ -52,10 +52,14 @@ App.WorkoutsCollection = Backbone.Collection.extend({
 * Views
 */
 App.WorkoutItemView = Marionette.ItemView.extend({
-  tagName : 'tr',
-  className : 'workout_row',
-  attributes: function(){return {'data-id': this.model.id};},
-  template: function(data){ 
+  	initialize: function(){
+  		//update view if workout is changed through editing
+		this.model.on('change', this.render, this);
+	},
+	tagName : 'tr',
+	className : 'workout_row',
+  	attributes: function(){return {'data-id': this.model.id};},
+  	template: function(data){ 
         var template = Marionette.TemplateCache.get('#workout-item-template');
   		return  template({model: data});
 	}
