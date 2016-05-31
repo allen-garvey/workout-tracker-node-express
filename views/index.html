@@ -69,8 +69,8 @@
     	<script type="text/template" id="workout-item-template">
 			<td><%- model.name %></td>
 			<td><%- model.reps %></td>
-			<td><%- model.formatted_weight %></td>
-			<td><%- model.formatted_date %></td>
+			<td><%- model.formatted_weight() %></td>
+			<td><%- model.formatted_date() %></td>
 			<td class="btn-container"><button class="edit-button">Edit</button><button class="delete-button">Delete</button></td>
     	</script>
     	<script type="text/template" id="workout-edit-form-template">

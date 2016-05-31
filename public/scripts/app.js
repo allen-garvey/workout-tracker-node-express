@@ -25,13 +25,13 @@ var App = Marionette.Application.extend({
 */
 App.Workout = Backbone.Model.extend({
 	initialize: function(attributes){
-		this.attributes.formatted_date = attributes.date;
-		if(attributes.lbs){
-			this.attributes.formatted_weight = attributes.weight + 'lbs';
-		}
-		else{
-			this.attributes.formatted_weight = attributes.weight + 'kg';
-		}
+		this.attributes.formatted_date = function(){return this.date};
+		this.attributes.formatted_weight = function(){
+			if(this.lbs){
+				return this.weight + 'lbs';
+			}
+			return this.weight + 'kg';
+		};
 	},
 	url: function(){
 		return app.config.workoutUrl;
