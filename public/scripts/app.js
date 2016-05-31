@@ -11,7 +11,7 @@ var App = Marionette.Application.extend({
 		
 	},
 	start : function(){
-        this.workoutsController = new App.WorkoutsController({isLocal: (this.config.env === 'local')});
+        this.workoutsController = new App.WorkoutsController();
 	},
 	//helper methods
 	//turns jQuery form to single JavaScript object
@@ -34,23 +34,14 @@ App.Workout = Backbone.Model.extend({
 		}
 	},
 	url: function(){
-		if(app.workoutsController.workouts.isLocal){
-			return 'http://localhost:3000/api/workouts';
-		}
-		return 'http://52.24.46.168:3000/api/workouts';
+		return app.config.workoutUrl;
 	}
 });
 
 App.WorkoutsCollection = Backbone.Collection.extend({
-	initialize: function(options){
-		this.isLocal = options.isLocal;
-	},
 	model: App.Workout,
 	url: function(){
-		if(this.isLocal){
-			return 'http://localhost:3000/api/workouts';
-		}
-		return 'http://52.24.46.168:3000/api/workouts';
+		return app.config.workoutUrl;
 	},
 	parse: function(response) {
     	return response.data;
@@ -98,8 +89,8 @@ App.WorkoutItemEditView = Marionette.ItemView.extend({
 /*
 * Controllers
 */
-App.WorkoutsController = function(options){
-	this.workouts = new App.WorkoutsCollection({isLocal: options.isLocal});
+App.WorkoutsController = function(){
+	this.workouts = new App.WorkoutsCollection();
 	var controller = this; //save reference to this
 	//load workouts on page load
 	var promise = this.workouts.fetch();
@@ -151,15 +142,7 @@ App.WorkoutsController = function(options){
 
 
 
-/*
-* Bootstrap app
-*/
-
-var app = new App({ config:  {env: 'local'}    });
-app.start();
-
-
-//add jquery ui datepicker to date inputs
+//add jquery ui datepicker to add workout date input
 (function($) {
 	$("input[type='date']").datepicker({"dateFormat": "yy-mm-dd"});
 })(jQuery);

@@ -114,5 +114,21 @@
     	<script src="scripts/vendor/backbone.marionette.min.js"></script>
     	<script src="scripts/vendor/jquery-ui.min.js"></script>
 		<script src="scripts/app.js"></script>
+		<script>
+			/*
+			* Bootstrap app
+			*/
+			var app = (function(){
+				var config = {isLocal : true };
+				if(config.isLocal){
+					config.workoutUrl = 'http://localhost:3000/api/workouts';
+				}
+				else{
+					config.workoutUrl = 'http://52.24.46.168:3000/api/workouts';
+				} 
+				return new App({ 'config': config    });
+			})();
+			app.start();
+		</script>
     </body>
 </html>
