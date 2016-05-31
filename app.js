@@ -83,8 +83,7 @@ app.patch('/api/workouts/:id',function(req,res,next){
 				next(err);
 				return;
 			}
-			console.log(result);
-			res.json(result);
+			res.json({success: true, id: workoutId});
 		});
 });
 
