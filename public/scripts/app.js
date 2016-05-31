@@ -33,16 +33,12 @@ App.Workout = Backbone.Model.extend({
 			return this.weight + 'kg';
 		};
 	},
-	url: function(){
-		return app.config.workoutUrl;
-	}
+	urlRoot: 'api/workouts'
 });
 
 App.WorkoutsCollection = Backbone.Collection.extend({
 	model: App.Workout,
-	url: function(){
-		return app.config.workoutUrl;
-	},
+	url: 'api/workouts',
 	parse: function(response) {
     	return response.data;
   	}
@@ -112,11 +108,9 @@ App.WorkoutsController = function(){
 		//add listeners for delete button
 		$(app.workoutTableRegion.el).on('click', '.delete-button', function(event) {
 			event.preventDefault();
-			var parent = $(this).closest('tr');
-			var workout_id = parent.data('id');
-			parent.remove(); //remove from DOM
+			var workout_id = $(this).closest('tr').data('id');
 			//remove from workouts
-			controller.workouts.get(workout_id).destroy();
+			controller.workouts.get(workout_id).destroy({ wait: true});
 		});
 		//add listeners for edit button
 		$(app.workoutTableRegion.el).on('click', '.edit-button', function(event) {
@@ -129,11 +123,6 @@ App.WorkoutsController = function(){
 		});
 		//add listeners for edit modal
 		$(app.workoutModalEditRegion.el).on('click', '.cancel-button', function(event) {
-			event.preventDefault();
-			app.workoutsController.editModal.destroy();
-		});
-		//save edit
-		$(app.workoutModalEditRegion.el).on('submit', 'form', function(event) {
 			event.preventDefault();
 			app.workoutsController.editModal.destroy();
 		});
@@ -152,7 +141,7 @@ App.WorkoutsController = function(){
 	//function called to save edited workout
 	this.updateWorkout = function(workoutId, workoutAttributes){
 		var workout = controller.workouts.get(workoutId);
-		workout.save(workoutAttributes, {patch: true, success: function(){ controller.editModal.destroy(); }});
+		workout.save(workoutAttributes, {patch: true, wait: true, success: function(){ controller.editModal.destroy(); }});
 	}
 };
 
