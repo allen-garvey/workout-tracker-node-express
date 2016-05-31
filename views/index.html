@@ -31,9 +31,9 @@
 			    			<input type="number" name="weight" min="0" placeholder="Weight lifted"/>
 			    			
 			    			<label for="workout_weight_units_lb">Pounds</label>
-			    			<input type="radio" name="lbs" value="true" checked="checked">
+			    			<input type="radio" name="lbs" value="1" checked="checked">
 			   				<label for="workout_weight_units_kg">Kilograms</label>
-			    			<input type="radio" name="lbs" value="false">
+			    			<input type="radio" name="lbs" value="0">
 		    			</div>
 
 		    			<div class="form-group">
@@ -92,10 +92,10 @@
 			    			<input type="number" name="weight" min="0" placeholder="Weight lifted" value="<%- model.weight %>" />
 			    			
 			    			<label for="workout_weight_units_lb">Pounds</label>
-			    			<input type="radio" name="lbs" value="true" 
+			    			<input type="radio" name="lbs" value="1" 
 			    			<%  if(model.lbs){print('checked="checked"');} %> >
 			   				<label for="workout_weight_units_kg">Kilograms</label>
-			    			<input type="radio" name="lbs" value="false"
+			    			<input type="radio" name="lbs" value="0"
 			    			<%  if(!model.lbs){print('checked="checked"');} %> >
 		    			</div>
 
