@@ -17,28 +17,28 @@
 	    				<legend>Add Workout</legend>
 	    				
 	    				<div class="form-group">
-	    					<label for="workout_name">Name of excercise</label>
-	    					<input type="text" name="workout_name" id="workout_name" placeholder="Name of excercise"/>
+	    					<label for="workout_name">Name of exercise</label>
+	    					<input type="text" name="workout_name" placeholder="Name of excercise"/>
 	    				</div>
 		    			
 		    			<div class="form-group">
 		    				<label for="workout_reps">Number of repetitions</label>
-		    				<input type="number" name="workout_reps" id="workout_reps" min="0" placeholder="Number of repetitions"/>
+		    				<input type="number" name="workout_reps" min="0" placeholder="Number of repetitions"/>
 		    			</div>
 		    			
 		    			<div class="form-group">
 			    			<label for="workout_weight">Weight lifted</label>
-			    			<input type="number" name="workout_weight" id="workout_weight" min="0" placeholder="Weight lifted"/>
+			    			<input type="number" name="workout_weight" min="0" placeholder="Weight lifted"/>
 			    			
 			    			<label for="workout_weight_units_lb">Pounds</label>
-			    			<input type="radio" name="workout_weight_units" id="workout_weight_units_lb" value="true" checked="checked">
+			    			<input type="radio" name="workout_weight_units" value="true" checked="checked">
 			   				<label for="workout_weight_units_kg">Kilograms</label>
-			    			<input type="radio" name="workout_weight_units" id="workout_weight_units_kg" value="false">
+			    			<input type="radio" name="workout_weight_units" value="false">
 		    			</div>
 
 		    			<div class="form-group">
 		    				<label for="workout_date">Workout date</label>
-		    				<input type="date" name="workout_date" id="workout_date" placeholder="Workout date">
+		    				<input type="date" name="workout_date" placeholder="Workout date">
 		    			</div>
 		    			
 		    			<div class="form-group align-right"><button type="submit">Add</button></div>
@@ -48,6 +48,10 @@
 	    	</div>
 			<div id="workouts_table_container">
 				Loading&hellip;
+			</div>
+			<div id="workouts_edit_container">
+				<div id="modal_overlay"></div>
+				<div id="edit_modal_region"></div>
 			</div>
     	</div>
     	<script type="text/template" id="workouts-table-template">
@@ -63,11 +67,46 @@
 			</tbody>
     	</script>
     	<script type="text/template" id="workout-item-template">
-			<td><%= model.name %></td>
-			<td><%= model.reps %></td>
-			<td><%= model.formatted_weight %></td>
-			<td><%= model.formatted_date %></td>
+			<td><%- model.name %></td>
+			<td><%- model.reps %></td>
+			<td><%- model.formatted_weight %></td>
+			<td><%- model.formatted_date %></td>
 			<td class="btn-container"><button class="edit-button">Edit</button><button class="delete-button">Delete</button></td>
+    	</script>
+    	<script type="text/template" id="workout-edit-form-template">
+			<form>
+				<fieldset>
+	    				<legend>Edit Workout</legend>
+	    				<div class="form-group">
+	    					<label for="workout_name">Name of exercise</label>
+	    					<input type="text" name="workout_name" placeholder="Name of excercise" value="<%- model.name %>" />
+	    				</div>
+		    			
+		    			<div class="form-group">
+		    				<label for="workout_reps">Number of repetitions</label>
+		    				<input type="number" name="workout_reps" min="0" placeholder="Number of repetitions" value="<%- model.reps %>" />
+		    			</div>
+		    			
+		    			<div class="form-group">
+			    			<label for="workout_weight">Weight lifted</label>
+			    			<input type="number" name="workout_weight" min="0" placeholder="Weight lifted" value="<%- model.weight %>" />
+			    			
+			    			<label for="workout_weight_units_lb">Pounds</label>
+			    			<input type="radio" name="workout_weight_units" value="true" 
+			    			<%  if(model.lbs){print('checked="checked"');} %> >
+			   				<label for="workout_weight_units_kg">Kilograms</label>
+			    			<input type="radio" name="workout_weight_units" value="false"
+			    			<%  if(!model.lbs){print('checked="checked"');} %> >
+		    			</div>
+
+		    			<div class="form-group">
+		    				<label for="workout_date">Workout date</label>
+		    				<input type="date" name="workout_date" placeholder="Workout date" value="<%- model.date%>">
+		    			</div>
+		    			
+		    			<div class="form-group align-right"><button type="submit">Add</button></div>
+	    			</fieldset>
+			</form>
     	</script>
     	<script src="scripts/vendor/jquery-2.2.4.min.js"></script>
     	<script src="scripts/vendor/underscore-min.js"></script>
