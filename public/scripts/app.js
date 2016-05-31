@@ -72,6 +72,7 @@ App.WorkoutItemEditView = Marionette.ItemView.extend({
   attributes: function(){return {'data-id': this.model.id};},
   onRender: function(){
     $('.modal_overlay').show();
+    $(this.el).find("input[type='date']").datepicker({"dateFormat": "yy-mm-dd"});
   },
   onDestroy: function(){
     $('.modal_overlay').hide();
