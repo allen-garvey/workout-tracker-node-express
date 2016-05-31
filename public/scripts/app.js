@@ -5,7 +5,8 @@ var App = Marionette.Application.extend({
 	initialize: function(options) {
 		this.config = options.config;
         this.addRegions({
-							workoutTableRegion: "#workouts_table_container"
+							workoutTableRegion: "#workouts_table_container",
+							workoutModalEditRegion: "#edit_modal_region"
 						});
 		
 	},
@@ -67,6 +68,15 @@ App.WorkoutsCompositeView = Marionette.CompositeView.extend({
 	childView: App.WorkoutItemView
 });
 
+App.WorkoutItemEditView = Marionette.ItemView.extend({
+  className : 'edit-workout-modal-container',
+  attributes: function(){return {'data-id': this.model.id};},
+  template: function(data){ 
+        var template = Marionette.TemplateCache.get('#workout-edit-form-template');
+  		return  template({model: data});
+	}
+});
+
 
 /*
 * Controllers
@@ -79,7 +89,8 @@ App.WorkoutsController = function(options){
 	promise.done(function(){
 		controller.workoutsView = new App.WorkoutsCompositeView({collection: controller.workouts});
 		app.workoutTableRegion.show(controller.workoutsView);
-		//add listeners for edit and delete button
+		
+		//add listeners for delete button
 		$(app.workoutTableRegion.el).on('click', '.delete-button', function(event) {
 			event.preventDefault();
 			var parent = $(this).closest('tr');
@@ -88,7 +99,15 @@ App.WorkoutsController = function(options){
 			//remove from workouts
 			controller.workouts.get(workout_id).destroy();
 		});
-
+		//add listeners for edit button
+		$(app.workoutTableRegion.el).on('click', '.edit-button', function(event) {
+			event.preventDefault();
+			var parent = $(this).closest('tr');
+			var workout_id = parent.data('id');
+			var selectedWorkout = controller.workouts.get(workout_id);
+			var editModal = new App.WorkoutItemEditView({model: selectedWorkout});
+			app.workoutModalEditRegion.show(editModal);
+		});
 	});
 };
 
