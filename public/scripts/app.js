@@ -31,7 +31,7 @@ App.Workout = Backbone.Model.extend({
 			return $.datepicker.formatDate("M d, yy", new Date(split[0], split[1] - 1, split[2]));
 		};
 		this.attributes.formatted_weight = function(){
-			if(this.lbs){
+			if(this.lbs == 1){
 				return this.weight + 'lbs';
 			}
 			return this.weight + 'kg';
