@@ -48,3 +48,25 @@ th{
 	min-width: 10em;
 }
 
+
+/*edit modal*/
+.edit-workout-modal-container{
+	position: fixed;
+	top: 10px;
+	background-color: white;
+	box-shadow: 3px 10px 10px black;
+	padding: 30px;
+	max-width: 100%;
+}
+.modal_overlay{
+	display: none;
+	position: fixed;
+	background-color: black;
+	opacity: 0.85;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+}
+
+
