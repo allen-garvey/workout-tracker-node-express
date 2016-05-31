@@ -12,6 +12,11 @@ var App = Marionette.Application.extend({
 	},
 	start : function(){
         this.workoutsController = new App.WorkoutsController({isLocal: (this.config.env === 'local')});
+	},
+	//helper methods
+	//turns jQuery form to single JavaScript object
+	serializeForm : function($form){
+		return $form.serializeArray().reduce(function(object, current, index){ object[current.name] = current.value; return object; }, {});
 	}
 });
 
@@ -27,6 +32,12 @@ App.Workout = Backbone.Model.extend({
 		else{
 			this.attributes.formatted_weight = attributes.weight + 'kg';
 		}
+	},
+	url: function(){
+		if(app.workoutsController.workouts.isLocal){
+			return 'http://localhost:3000/api/workouts';
+		}
+		return 'http://52.24.46.168:3000/api/workouts';
 	}
 });
 
@@ -124,6 +135,17 @@ App.WorkoutsController = function(options){
 			event.preventDefault();
 			app.workoutsController.editModal.destroy();
 		});
+	});
+
+	this.addWorkout = function(workoutAttributes){
+		var workout = new App.Workout(workoutAttributes);
+		workout.save({}, { success: function(){controller.workouts.add(workout);} });
+	};
+	//listeners for add workout
+	$('#add_workout_container form').on('submit', function(event) {
+		event.preventDefault();
+		var workoutAttributes =  app.serializeForm($(this));
+		controller.addWorkout(workoutAttributes);
 	});
 };
 
