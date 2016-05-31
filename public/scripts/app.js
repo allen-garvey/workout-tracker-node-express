@@ -76,11 +76,16 @@ App.WorkoutItemEditView = Marionette.ItemView.extend({
   		var workoutId = this.model.id;
     	
     	$('.modal_overlay').show();
+    	var self = this;
     	$view = $(this.el);
     	$view.find("input[type='date']").datepicker({"dateFormat": "yy-mm-dd"});
     	$view.find('form').on('submit', function(event) {
     		event.preventDefault();
     		app.workoutsController.updateWorkout(workoutId, app.serializeForm($(this)));
+    	});
+    	$view.find('.cancel-button').on('click', function(event) {
+    		event.preventDefault();
+    		self.destroy();
     	});
   	},
   	onDestroy: function(){
@@ -120,11 +125,6 @@ App.WorkoutsController = function(){
 			var selectedWorkout = controller.workouts.get(workout_id);
 			controller.editModal = new App.WorkoutItemEditView({model: selectedWorkout});
 			app.workoutModalEditRegion.show(controller.editModal);
-		});
-		//add listeners for edit modal
-		$(app.workoutModalEditRegion.el).on('click', '.cancel-button', function(event) {
-			event.preventDefault();
-			app.workoutsController.editModal.destroy();
 		});
 	});
 
