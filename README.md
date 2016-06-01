@@ -6,9 +6,11 @@ Single page web application to record your workouts, made with node and Express.
 
 * node 4.4.4
 * jQuery 2.2.4
+* jQuery UI 1.11.4 (for datepicker)
 * underscore 1.8.3
 * Backbone 1.3.3
 * Backbone Marionette 2.5.6
+* MySql 5.5.44
 
 ## Getting Started
 
